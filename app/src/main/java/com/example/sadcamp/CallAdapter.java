@@ -1,6 +1,8 @@
 package com.example.sadcamp;
 
 
+import android.content.Context;
+import android.view.ContentInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 
 public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
 
+    private Context context;
     private ArrayList<ContactData> contactList;
 
     /**
@@ -52,8 +55,9 @@ public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
      * @param dataSet String[] containing the data to populate views to be used
      * by RecyclerView.
      */
-    public CallAdapter(ArrayList<ContactData> dataSet) {
-        contactList = dataSet;
+    public CallAdapter(Context context, ArrayList<ContactData> dataSet) {
+        this.context = context;
+        this.contactList = dataSet;
     }
 
     // Create new views (invoked by the layout manager)
@@ -62,13 +66,13 @@ public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
         // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_view, viewGroup, false);
-
-        return new ViewHolder(view);
+        ViewHolder holder = new ViewHolder(view);
+        return holder;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
