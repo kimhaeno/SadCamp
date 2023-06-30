@@ -1,23 +1,28 @@
-package com.example.sadcamp.fragments;
+package com.example.sadcamp;
 
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
 
-    private String[] contactData;
+    private ArrayList<ContactData> contactList;
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textView;
+        private final TextView nameView;
+        private final TextView numberView;
+        private final ImageView imgView;
 
         public ViewHolder(View view) {
             super(view);
@@ -37,8 +42,8 @@ public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
      * @param dataSet String[] containing the data to populate views to be used
      * by RecyclerView.
      */
-    public CustomAdapter(String[] dataSet) {
-        localDataSet = dataSet;
+    public CallAdapter(String[] dataSet) {
+        contactData = dataSet;
     }
 
     // Create new views (invoked by the layout manager)
@@ -57,12 +62,12 @@ public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getTextView().setText(localDataSet[position]);
+        viewHolder.getTextView().setText(contactList[position]);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return localDataSet.length;
+        return contactList.length;
     }
 }
