@@ -7,7 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.sadcamp.fragments.CallFragment;
 import com.example.sadcamp.fragments.FreeFragment;
-import com.example.sadcamp.fragments.GallaryFragment;
+import com.example.sadcamp.fragments.GalleryFragment;
 
 public class MyViewPagerAdapter extends FragmentStateAdapter {
     public MyViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
@@ -21,7 +21,7 @@ public class MyViewPagerAdapter extends FragmentStateAdapter {
             case 0:
                 return new CallFragment();
             case 1:
-                return new GallaryFragment();
+                return new GalleryFragment();
             case 2:
                 return new FreeFragment();
             default:

@@ -45,9 +45,9 @@ public class CallFragment extends Fragment {
         data.add(new ContactData("Micky mose","mickey.mouse@email.com",R.drawable.e));
         data.add(new ContactData("Pick War","pick.war@email.com",R.drawable.f));
         data.add(new ContactData("Leg piece","leg.piece@email.com",R.drawable.g));
-        data.add(new ContactData("Apple Mac","apple.mac@email.com",R.drawable.g));
-        data.add(new ContactData("John wick","john.wick@email.com",R.drawable.a));
-        data.add(new ContactData("Robert j","robert.j@email.com",R.drawable.b));
+        data.add(new ContactData("Apple Mac","apple.mac@email.com",R.drawable.h));
+        data.add(new ContactData("John wick","john.wick@email.com",R.drawable.i));
+        data.add(new ContactData("Robert j","robert.j@email.com",R.drawable.j));
         data.add(new ContactData("James Gunn","james.gunn@email.com",R.drawable.c));
         data.add(new ContactData("Ricky tales","rickey.tales@email.com",R.drawable.d));
         data.add(new ContactData("Micky mose","mickey.mouse@email.com",R.drawable.e));
