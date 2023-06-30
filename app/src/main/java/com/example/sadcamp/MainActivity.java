@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -13,8 +14,12 @@ public class MainActivity extends AppCompatActivity {
     ViewPager2 viewPager2;
     MyViewPagerAdapter myViewPagerAdapter;
 
+    private static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Log.d(TAG, "Start!");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

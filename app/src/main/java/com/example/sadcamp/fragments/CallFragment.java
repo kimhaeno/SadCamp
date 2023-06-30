@@ -2,10 +2,13 @@ package com.example.sadcamp.fragments;
 
 import android.os.Bundle;
 
+
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,22 +21,33 @@ import java.util.ArrayList;
 
 public class CallFragment extends Fragment {
 
+    private static final String TAG = "CallFragment";
+
+    private RecyclerView recyclerView;
+    private CallAdapter adapter;
+    ArrayList<ContactData> data = new ArrayList<>();
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_call, container, false);
-        RecyclerView recyclerView = getView().findViewById(R.id.recyclerview);
 
-        ArrayList<ContactData> data = new ArrayList<ContactData>();
+        Log.d(TAG, "onCreate");
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_call,
+                container, false);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview);
+
         data.add(new ContactData("John wick","john.wick@email.com",R.drawable.a));
         data.add(new ContactData("Robert j","robert.j@email.com",R.drawable.b));
         data.add(new ContactData("James Gunn","james.gunn@email.com",R.drawable.c));
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
-        recyclerView.setAdapter(new CallAdapter(data));
+        adapter = new CallAdapter(getActivity(), data);
+
+        Log.d(TAG, "array constructed");
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(adapter);
 
         return rootView;
     }
