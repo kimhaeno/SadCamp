@@ -25,7 +25,7 @@ public class CallFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_call, container, false);
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = getView().findViewById(R.id.recyclerview);
 
         ArrayList<ContactData> data = new ArrayList<ContactData>();
         data.add(new ContactData("John wick","john.wick@email.com",R.drawable.a));
