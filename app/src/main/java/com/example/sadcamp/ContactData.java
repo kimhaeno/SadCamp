@@ -3,12 +3,12 @@ package com.example.sadcamp;
 public class ContactData {
     private int profile;
     private String name;
-    private String phoneNumber;
+    private String email;
 
-    public ContactData(int profile, String name, String phoneNumber){
+    public ContactData(int profile, String name, String email){
         this.profile = profile;
         this.name = name;
-        this.phoneNumber = phoneNumber;
+        this.email = email;
     }
 
     public int getPic()
@@ -16,13 +16,25 @@ public class ContactData {
         return this.profile;
     }
 
+    public void setPic(int profile) {
+        this.profile = profile;
+    }
+
     public String getName()
     {
         return this.name;
     }
 
-    public String getNumber()
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMail()
     {
-        return this.phoneNumber;
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
