@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
 
     private Context context;
@@ -25,7 +27,7 @@ public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView nameView;
         private final TextView emailView;
-        private final ImageView imgView;
+        private final CircleImageView imgView;
 
         public ViewHolder(View view) {
             super(view);
@@ -33,7 +35,7 @@ public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
 
             nameView = (TextView) view.findViewById(R.id.name);
             emailView = (TextView) view.findViewById(R.id.email);
-            imgView = (ImageView) view.findViewById(R.id.imageview);
+            imgView = (CircleImageView) view.findViewById(R.id.imageview);
         }
 
         public TextView getNameView() {
@@ -44,7 +46,7 @@ public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
             return emailView;
         }
 
-        public ImageView getImgView() {
+        public CircleImageView getImgView() {
             return imgView;
         }
     }
