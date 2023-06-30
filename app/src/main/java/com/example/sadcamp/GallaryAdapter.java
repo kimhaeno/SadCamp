@@ -11,15 +11,13 @@ public class GallaryAdapter extends BaseAdapter {
 
     private Context mContext;
 
-    public int[] imageArray = {
-            R.drawable.a,R.drawable.b,R.drawable.c,
-            R.drawable.d,R.drawable.e
-    };
+    public int[] imageArray;
 
 
 
-    public GallaryAdapter(Context mContext){
+    public GallaryAdapter(Context mContext, int[] imageArray){
         this.mContext = mContext;
+        this.imageArray = imageArray;
     }
 
     @Override
@@ -43,7 +41,7 @@ public class GallaryAdapter extends BaseAdapter {
         ImageView imageView = new ImageView(mContext);
         imageView.setImageResource(imageArray[i]);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setLayoutParams(new ViewGroup.LayoutParams( 340, 350));
+        imageView.setLayoutParams(new ViewGroup.LayoutParams(340, 350));
 
         return imageView;
     }
