@@ -1,6 +1,7 @@
 package com.example.sadcamp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+
+import androidx.fragment.app.FragmentActivity;
+
+import java.util.ArrayList;
 
 public class GalleryAdapter extends BaseAdapter {
 
@@ -24,7 +29,7 @@ public class GalleryAdapter extends BaseAdapter {
 
         if (convertView == null){
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+            imageView.setLayoutParams(new GridView.LayoutParams(340, 350));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8,8,8,8);
         } else {
@@ -32,21 +37,19 @@ public class GalleryAdapter extends BaseAdapter {
         }
 
         imageView.setImageBitmap(mImages.get(position));
-        imageView.setOnClickListener(new View.OnClickListener(){
+
+
+
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                // here position is the image position in the grid view.
-                // handle your click event here.
-                // you can show your dialog from here.
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, PhotoActivity.class);
 
-                Bundle bundle =new Bundle();
-                bundle.putInt("position", position); //key랑 value
-
-                MyDialogFragment dialog = new MyDialogFragment();
-                dialog.setArguments(bundle);
-                dialog.show(((FragmentActivity)mContext).getSupportFragmentManager(), "myDialog");
+                intent.putExtra("position", position);
+                mContext.startActivity(intent);
             }
         });
+
         return imageView;
     }
 
