@@ -1,4 +1,4 @@
-package com.example.sadcamp.fragments;
+package com.example.sadcamp;
 
 import android.Manifest;
 import android.app.Activity;
@@ -21,16 +21,13 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.sadcamp.DatabaseHelper;
-import com.example.sadcamp.R;
-
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 
-public class FreeFragment extends Fragment {
+public class NewContactFragment extends Fragment {
 
     EditText name;
     EditText age;
@@ -43,7 +40,7 @@ public class FreeFragment extends Fragment {
     // SimpleDateFormat 으로 포맷 결정
     String result = dataFormat.format(curDate);
 
-    public FreeFragment() {
+    public NewContactFragment() {
         // Required empty public constructor
     }
 
@@ -52,7 +49,7 @@ public class FreeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_free, container, false);
+        View view = inflater.inflate(R.layout.fragment_new_contact, container, false);
         // 프래그먼트에 findViewByld 적용위해 View 선언
         name = view.findViewById(R.id.editTextTextPersonName);
         age = view.findViewById(R.id.editTextTextPersonName2);

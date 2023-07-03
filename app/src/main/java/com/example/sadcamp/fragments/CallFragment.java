@@ -1,21 +1,22 @@
 package com.example.sadcamp.fragments;
 
 import android.os.Bundle;
-
-
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.sadcamp.CallAdapter;
 import com.example.sadcamp.ContactData;
+import com.example.sadcamp.NewContactFragment;
 import com.example.sadcamp.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -31,11 +32,19 @@ public class CallFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_call, container, false);
 
-        Log.d(TAG, "onCreate");
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_call,
-                container, false);
+        FloatingActionButton fabAddContact = rootView.findViewById(R.id.fab_add_contact);
+        fabAddContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, new NewContactFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview);
 
         data.add(new ContactData("John wick","john.wick@email.com",R.drawable.a));

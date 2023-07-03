@@ -12,13 +12,16 @@ public class MyDialogFragment extends DialogFragment {
 
     private static final String ARG_POSITION = "position";
 
-    public static MyDialogFragment newInstance(int position){
+    public static MyDialogFragment newInstance(String name, String age, String birthday) {
         MyDialogFragment fragment = new MyDialogFragment();
-        Bundle args =new Bundle();
-        args.putInt(ARG_POSITION, position);
+        Bundle args = new Bundle();
+        args.putString("name", name);
+        args.putString("age", age);
+        args.putString("birthday", birthday);
         fragment.setArguments(args);
         return fragment;
     }
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
