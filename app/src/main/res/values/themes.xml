@@ -6,6 +6,11 @@
         <item name="android:windowBackground">@mipmap/title</item>
     </style>
 
+    <style name="PhotoTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
 
     <style name="Theme.SadCamp" parent="Base.Theme.SadCamp" />
 </resources>
