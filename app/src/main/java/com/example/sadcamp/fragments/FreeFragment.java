@@ -1,12 +1,19 @@
 package com.example.sadcamp.fragments;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.Manifest;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
@@ -16,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.sadcamp.R;
@@ -30,6 +38,8 @@ public class FreeFragment extends Fragment {
     EditText name;
     EditText age;
     Button birthday;
+    ImageButton imageButton;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     Date curDate = new Date(); // 현재
     final SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
@@ -71,8 +81,29 @@ public class FreeFragment extends Fragment {
             }
         }); // 저장 버튼 클릭 시 입력한 정보 표시
 
+
+        imageButton = view.findViewById(R.id.imageButton);
+        imageButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // 카메라 권한이 있는지 확인합니다.
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    // 카메라 권한이 없다면 권한을 요청합니다.
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+                } else {
+                    // 이미 권한이 있다면 카메라 앱을 실행합니다.
+                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                    }
+                }
+            }
+        });
+
         return view;
     }
+
+    private static final int REQUEST_CAMERA_PERMISSION = 1001;
 
     private void showDateDialog(){
         Calendar calendar = Calendar.getInstance();
@@ -112,4 +143,15 @@ public class FreeFragment extends Fragment {
         String selectedDateStr = dataFormat.format(curDate);
         birthday.setText(selectedDateStr); // 버튼의 텍스트 수정
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK){
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageButton.setImageBitmap(imageBitmap);
+        }
+    }
+
 }
