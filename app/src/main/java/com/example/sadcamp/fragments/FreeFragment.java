@@ -1,22 +1,14 @@
 package com.example.sadcamp.fragments;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.Manifest;
-
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
-import android.text.Editable;
-import android.text.InputFilter;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +18,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+
+import com.example.sadcamp.DatabaseHelper;
 import com.example.sadcamp.R;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -76,7 +73,20 @@ public class FreeFragment extends Fragment {
                 String ageStr = age.getText().toString();
                 String birthStr = birthday.getText().toString();
 
-                Toast.makeText(getContext(),"이름 : "+nameStr +", 나이 : "+ageStr+", 생년월일 : "+birthStr
+                //이미지 버튼에 설정된 이미지를 Bitmap 형태로 가져오기
+                BitmapDrawable drawable = (BitmapDrawable) imageButton.getDrawable();
+                Bitmap bitmap = drawable.getBitmap();
+
+                //Bitmap을 byte array로 변환
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                byte[]byteArray = byteArrayOutputStream.toByteArray();
+
+                //DatabaseHelper 인스턴스 생성, addUser 메소드 호출 사용자 정보 저장
+                DatabaseHelper db = new DatabaseHelper(getContext());
+                db.addUser(nameStr, ageStr, birthStr, byteArray);
+
+                Toast.makeText(getContext(), "운동 기록 저장 완료"
                         ,Toast.LENGTH_SHORT).show();
             }
         }); // 저장 버튼 클릭 시 입력한 정보 표시
