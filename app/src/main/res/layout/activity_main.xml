@@ -14,15 +14,15 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text="누구랑" />
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="gallery"/>
+            android:text="어디서"/>
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""/>
+            android:text="어떻게"/>
 
     </com.google.android.material.tabs.TabLayout>
 

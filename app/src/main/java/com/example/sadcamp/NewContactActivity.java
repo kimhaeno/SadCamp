@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -27,41 +28,22 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class NewContactFragment extends Fragment {
+public class NewContactActivity extends AppCompatActivity {
 
     EditText name;
     EditText age;
-    Button birthday;
     ImageButton imageButton;
     static final int REQUEST_IMAGE_CAPTURE = 1;
-
-    Date curDate = new Date(); // 현재
-    final SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
-    // SimpleDateFormat 으로 포맷 결정
-    String result = dataFormat.format(curDate);
-
-    public NewContactFragment() {
-        // Required empty public constructor
-    }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_new_contact, container, false);
+        View view = inflater.inflate(R.layout.activity_new_contact, container, false);
         // 프래그먼트에 findViewByld 적용위해 View 선언
         name = view.findViewById(R.id.editTextTextPersonName);
         age = view.findViewById(R.id.editTextTextPersonName2);
-
-        birthday = view.findViewById(R.id.button);
-        birthday.setText(result); // 오늘 날짜로 초기화
-        birthday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDateDialog(); // 생년월일 버튼 클릭 시 showDateDialog() 함수 호출
-            }
-        });
 
         Button save = view.findViewById(R.id.button2);
         save.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +51,6 @@ public class NewContactFragment extends Fragment {
             public void onClick(View view) {
                 String nameStr = name.getText().toString();
                 String ageStr = age.getText().toString();
-                String birthStr = birthday.getText().toString();
 
                 //이미지 버튼에 설정된 이미지를 Bitmap 형태로 가져오기
                 BitmapDrawable drawable = (BitmapDrawable) imageButton.getDrawable();
@@ -82,7 +63,7 @@ public class NewContactFragment extends Fragment {
 
                 //DatabaseHelper 인스턴스 생성, addUser 메소드 호출 사용자 정보 저장
                 DatabaseHelper db = new DatabaseHelper(getContext());
-                db.addUser(nameStr, ageStr, birthStr, byteArray);
+                db.addUser(nameStr, ageStr,byteArray);
 
                 Toast.makeText(getContext(), "운동 기록 저장 완료"
                         ,Toast.LENGTH_SHORT).show();
@@ -113,39 +94,6 @@ public class NewContactFragment extends Fragment {
 
     private static final int REQUEST_CAMERA_PERMISSION = 1001;
 
-    private void showDateDialog(){
-        Calendar calendar = Calendar.getInstance();
-        try {
-            curDate = dataFormat.parse(birthday.getText().toString());
-            // 문자열로 된 생년월일을 Date로 파싱
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        }
-
-        calendar.setTime(curDate);
-
-        int curYear = calendar.get(Calendar.YEAR);
-        int curMonth = calendar.get(Calendar.MONTH);
-        int curDay = calendar.get(Calendar.DAY_OF_MONTH);
-        // 년,월,일 넘겨줄 변수
-
-        DatePickerDialog dialog = new DatePickerDialog(getContext(),  birthDateSetListener,  curYear, curMonth, curDay);
-        dialog.show();
-    }
-
-    private DatePickerDialog.OnDateSetListener birthDateSetListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-            Calendar selectedCalendar = Calendar.getInstance();
-            selectedCalendar.set(Calendar.YEAR, year);
-            selectedCalendar.set(Calendar.MONTH, month);
-            selectedCalendar.set(Calendar.DAY_OF_MONTH, day);
-            // 달력의 년월일을 버튼에서 넘겨받은 년월일로 설정
-
-            Date curDate = selectedCalendar.getTime(); // 현재를 넘겨줌
-            setSelectedDate(curDate);
-        }
-    };
 
     private void setSelectedDate(Date curDate) {
         String selectedDateStr = dataFormat.format(curDate);

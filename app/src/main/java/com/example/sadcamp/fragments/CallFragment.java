@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sadcamp.CallAdapter;
 import com.example.sadcamp.ContactData;
-import com.example.sadcamp.NewContactFragment;
+import com.example.sadcamp.NewContactActivity;
 import com.example.sadcamp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -40,7 +40,7 @@ public class CallFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, new NewContactFragment());
+                fragmentTransaction.replace(R.id.fragment_container, new NewContactActivity());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
