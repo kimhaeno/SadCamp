@@ -42,7 +42,7 @@
         android:layout_height="1dp"
         android:layout_below="@id/imageview"
         android:layout_marginTop="10dp"
-        android:background="#6A329F"/>
+        android:background="#0F0F0F"/>
 
 
 </RelativeLayout>

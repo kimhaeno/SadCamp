@@ -71,5 +71,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         res.close();
         return images;
     }
+
+    public Bitmap getBitmapImage(int position){
+        Bitmap image = null;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT " + COL5 + " FROM " + TABLE_NAME + " WHERE ID = " + (position + 1), null);
+        if (res.moveToFirst()){
+            byte[] imgByte = res.getBlob(0);
+            image = BitmapFactory.decodeByteArray(imgByte,0, imgByte.length);
+        }
+
+        res.close();
+        return image;
+    }
+    //아니 ㅋㅋ...생일이랑 나이 실화냐?
+    /*
+    public String[] getPhotoInfo(int position){
+        Bitmap image = null;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT * " + " FROM " + TABLE_NAME + " WHERE ID = " + (position + 1), null);
+        if (res.moveToFirst()){
+            byte[] imgByte = res.getBlob(0);
+            image = BitmapFactory.decodeByteArray(imgByte,0, imgByte.length);
+        }
+
+        res.close();
+        return image;
+    }*/
+
 }
 

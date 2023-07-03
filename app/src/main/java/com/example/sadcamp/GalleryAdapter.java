@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,12 +13,16 @@ import android.widget.ImageView;
 
 import androidx.fragment.app.FragmentActivity;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GalleryAdapter extends BaseAdapter {
 
     private Context mContext;
-    private ArrayList<Bitmap> mImages;  // 이미지를 저장하는 리스트
+    private ArrayList<Bitmap> mImages;  // 이미지 fileneme을 저장하는 리스트
 
     public GalleryAdapter(Context context, ArrayList<Bitmap> images) {
         this.mContext = context;
@@ -29,7 +34,7 @@ public class GalleryAdapter extends BaseAdapter {
 
         if (convertView == null){
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(340, 350));
+            imageView.setLayoutParams(new GridView.LayoutParams(330, 330));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(8,8,8,8);
         } else {
@@ -68,5 +73,7 @@ public class GalleryAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
+
+
 
 }
