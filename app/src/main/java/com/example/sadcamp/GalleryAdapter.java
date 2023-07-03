@@ -1,14 +1,13 @@
 package com.example.sadcamp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
-
-import java.util.ArrayList;
 
 public class GalleryAdapter extends BaseAdapter {
 
@@ -47,6 +46,14 @@ public class GalleryAdapter extends BaseAdapter {
         imageView.setImageResource(photoArray[i]);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setLayoutParams(new ViewGroup.LayoutParams(340, 350));
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, PhotoActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
 
         return imageView;
     }

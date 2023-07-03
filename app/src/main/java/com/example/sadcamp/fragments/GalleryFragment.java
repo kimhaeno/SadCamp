@@ -33,6 +33,8 @@ public class GalleryFragment extends Fragment {
         gridView = rootView.findViewById(R.id.gridView);
         gridView.setAdapter(galleryAdapter);
 
+
+
         return rootView;
     }
 }
