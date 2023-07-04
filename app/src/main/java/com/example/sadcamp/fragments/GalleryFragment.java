@@ -37,6 +37,7 @@ public class GalleryFragment extends Fragment {
 
         return rootView;
     }
+
 }
 
 
