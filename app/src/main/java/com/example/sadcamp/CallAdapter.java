@@ -3,15 +3,10 @@ package com.example.sadcamp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.ContentInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.app.AlertDialog;
-import android.widget.ImageView;
 import android.widget.TextView;
-import com.google.gson.Gson;
-
 
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,7 +26,7 @@ public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView nameView;
-        private final TextView emailView;
+        private final TextView phoneNumberView;
         private final CircleImageView imgView;
 
         public ViewHolder(View view) {
@@ -39,7 +34,7 @@ public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
             // Define click listener for the ViewHolder's View
 
             nameView = (TextView) view.findViewById(R.id.name);
-            emailView = (TextView) view.findViewById(R.id.email);
+            phoneNumberView = (TextView) view.findViewById(R.id.phoneNumber);
             imgView = (CircleImageView) view.findViewById(R.id.imageview);
         }
 
@@ -47,8 +42,8 @@ public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
             return nameView;
         }
 
-        public TextView getEmailView() {
-            return emailView;
+        public TextView getPhoneNumberView() {
+            return phoneNumberView;
         }
 
         public CircleImageView getImgView() {
@@ -83,7 +78,7 @@ public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.getNameView().setText(contactList.get(position).getName());
-        viewHolder.getEmailView().setText(contactList.get(position).getMail());
+        viewHolder.getPhoneNumberView().setText(contactList.get(position).getPhoneNumber());
         viewHolder.getImgView().setImageResource(contactList.get(position).getPic());
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

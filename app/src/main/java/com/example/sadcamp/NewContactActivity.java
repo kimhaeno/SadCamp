@@ -29,7 +29,7 @@ import java.util.Date;
 
 
 public class NewContactActivity extends AppCompatActivity {
-
+/*
     EditText name;
     EditText age;
     ImageButton imageButton;

@@ -5,12 +5,12 @@ import java.io.Serializable;
 public class ContactData implements Serializable {
 
     private String name;
-    private String email;
+    private String phoneNumber;
     private int profile;
-    public ContactData(String name, String email, int profile){
+    public ContactData(String name, String phoneNumber, int profile){
         this.profile = profile;
         this.name = name;
-        this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 
     public int getPic()
@@ -31,13 +31,13 @@ public class ContactData implements Serializable {
         this.name = name;
     }
 
-    public String getMail()
+    public String getPhoneNumber()
     {
-        return this.email;
+        return this.phoneNumber;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
 
