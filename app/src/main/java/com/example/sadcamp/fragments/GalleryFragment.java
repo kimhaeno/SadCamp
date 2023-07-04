@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import androidx.fragment.app.Fragment;
@@ -43,6 +44,21 @@ public class GalleryFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(true);
                 getContacts();
                 swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                // 길게 눌린 항목의 이미지 ID 가져오기
+                int imageId = (int) id;
+                myDb.deleteData(imageId);
+
+                // 사진 목록 갱신
+                getContacts();
+
+                return true; // 이벤트 소비
             }
         });
 

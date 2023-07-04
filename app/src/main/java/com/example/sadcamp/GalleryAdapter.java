@@ -3,20 +3,12 @@ package com.example.sadcamp;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import androidx.fragment.app.FragmentActivity;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class GalleryAdapter extends BaseAdapter {
@@ -28,6 +20,13 @@ public class GalleryAdapter extends BaseAdapter {
         this.mContext = context;
         this.mImages = images;
     }
+    public void deleteImage(int position) {
+        // 해당 위치의 사진을 삭제하는 작업 수행
+        // 예를 들어, 이미지 리스트에서 해당 위치의 사진을 제거하고 어댑터를 갱신합니다.
+        mImages.remove(position);
+        notifyDataSetChanged();
+    }
+
 
     public View getView(final int position, View convertView, ViewGroup parent){
         ImageView imageView;
