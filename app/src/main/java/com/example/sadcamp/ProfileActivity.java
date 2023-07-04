@@ -43,7 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
         TextView numberView = findViewById(R.id.profile_number);
         EditText editMsg = findViewById(R.id.editMsg);
 
-        profileView.setImageResource(contactdata.getPic());
+        profileView.setImageBitmap(contactdata.getPic());
         nameView.setText(contactdata.getName());
         numberView.setText(contactdata.getPhoneNumber());
 

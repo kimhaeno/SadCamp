@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -27,7 +28,8 @@ public class ContactDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COL2 +" TEXT, " + COL3 +" BLOB, " + COL4 + " TEXT, " + COL5 + "TEXT)";
+                COL2 +" TEXT, " + COL3 +" BLOB, " + COL4 + " TEXT, " + COL5 + " TEXT) ";
+        Log.d("aaaaaaaaaaaaaaaaaaaaaaaaa", createTable);
         db.execSQL(createTable);
     }
 
@@ -104,6 +106,30 @@ public class ContactDatabaseHelper extends SQLiteOpenHelper {
 
         res.close();
         return info;
+    }
+
+    public ArrayList<ContactData> getAllProfiles(){
+        int cnt = 0;
+        ArrayList<ContactData> data = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor res = db.rawQuery("SELECT " + COL2 + " , " + COL3 + " , " + COL4 + " , " + COL5 + " FROM " + TABLE_NAME, null);
+        if (res.moveToFirst()){
+            do{
+                String name = res.getString(0);
+                Log.d("CONTACT!", name);
+                byte[] imgByte = res.getBlob(1);
+                Bitmap profile = BitmapFactory.decodeByteArray(imgByte,0, imgByte.length);
+
+                String bio = res.getString(2);
+                String phoneNumber = res.getString(3);
+                data.add(new ContactData(name, phoneNumber, profile, bio) );
+                cnt++;
+            }while (res.moveToNext());
+        }
+        Log.d("CONTACTDATABASEHELPER", String.format("%d", cnt));
+        res.close();
+        return data;
     }
 
 }

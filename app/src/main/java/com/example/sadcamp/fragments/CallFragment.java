@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sadcamp.CallAdapter;
 import com.example.sadcamp.ContactData;
+import com.example.sadcamp.ContactDatabaseHelper;
 import com.example.sadcamp.NewContactActivity;
 import com.example.sadcamp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,11 +30,15 @@ public class CallFragment extends Fragment {
     private CallAdapter adapter;
     ArrayList<ContactData> data = new ArrayList<>();
 
+    ContactDatabaseHelper contactDb;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_call, container, false);
+
+        contactDb = new ContactDatabaseHelper(getActivity());
 
         FloatingActionButton fabAddContact = rootView.findViewById(R.id.fab_add_contact);
         fabAddContact.setOnClickListener(new View.OnClickListener() {
@@ -49,8 +54,11 @@ public class CallFragment extends Fragment {
         });
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview);
 
-        data.add(new ContactData("신민영","010-5127-6448",R.drawable.shin));
-        data.add(new ContactData("Test","010-5413-6410",R.drawable.b));
+
+
+        //data.add(new ContactData("신민영","010-5127-6448",R.drawable.shin));
+
+        data = contactDb.getAllProfiles();
 
         adapter = new CallAdapter(getActivity(), data);
 

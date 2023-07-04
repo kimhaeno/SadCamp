@@ -29,6 +29,8 @@ public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
         private final TextView phoneNumberView;
         private final CircleImageView imgView;
 
+        private final TextView bioView;
+
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
@@ -36,6 +38,7 @@ public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
             nameView = (TextView) view.findViewById(R.id.name);
             phoneNumberView = (TextView) view.findViewById(R.id.phoneNumber);
             imgView = (CircleImageView) view.findViewById(R.id.imageview);
+            bioView = (TextView) view.findViewById(R.id.bio);
         }
 
         public TextView getNameView() {
@@ -48,6 +51,10 @@ public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
 
         public CircleImageView getImgView() {
             return imgView;
+        }
+
+        public TextView getBioView() {
+            return bioView;
         }
     }
 
@@ -79,7 +86,8 @@ public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
         // contents of the view with that element
         viewHolder.getNameView().setText(contactList.get(position).getName());
         viewHolder.getPhoneNumberView().setText(contactList.get(position).getPhoneNumber());
-        viewHolder.getImgView().setImageResource(contactList.get(position).getPic());
+        viewHolder.getImgView().setImageBitmap(contactList.get(position).getPic());
+        viewHolder.getBioView().setText(contactList.get(position).getBio());
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

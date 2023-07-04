@@ -7,12 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "photo.db";
-    public static final String TABLE_NAME = "person_data";
+    public static final String TABLE_NAME = "photo_data";
     public static final String COL2 = "name";
     public static final String COL3 = "age";
     public static final String COL4 = "birthday";
@@ -26,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COL2 +" TEXT, " + COL3 +" INTEGER, " + COL4 + " TEXT, " + COL5 + " BLOB)";
+        Log.d("aaaaaaaaaaaaaaaaaaaaaaaaa", createTable);
         db.execSQL(createTable);
     }
 

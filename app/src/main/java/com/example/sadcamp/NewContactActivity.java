@@ -49,13 +49,17 @@ public class NewContactActivity extends AppCompatActivity {
                 // 이미지 버튼에 설정된 이미지를 Bitmap 형태로 가져오기
                 BitmapDrawable drawable = (BitmapDrawable) imageButton.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
+                bitmap = Bitmap.createScaledBitmap(bitmap, 200,200, false);
 
                 // Bitmap을 byte array로 변환
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
                 byte[] imageByteArray = byteArrayOutputStream.toByteArray();
 
-                // DatabaseHelper2 인스턴스 생성, addUser 메소드 호출하여 사용자 정보 저장
+                if(nameStr==null || imageByteArray==null ||phoneNumberStr==null)
+                    return;
+
+                // DatabaseHelper 인스턴스 생성, addUser 메소드 호출하여 사용자 정보 저장
                 ContactDatabaseHelper db = new ContactDatabaseHelper(NewContactActivity.this);
                 db.addUser(nameStr, imageByteArray, bioStr, phoneNumberStr);
 
