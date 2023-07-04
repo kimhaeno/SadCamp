@@ -1,113 +1,97 @@
 package com.example.sadcamp;
 
-import android.Manifest;
-import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
+import java.io.IOException;
 
 public class NewContactActivity extends AppCompatActivity {
 
-    EditText name;
-    EditText age;
-    ImageButton imageButton;
-    static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_GALLERY = 2;
 
+    private EditText name;
+    private EditText phoneNumber;
+    private ImageButton imageButton;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_new_contact);
 
-        View view = inflater.inflate(R.layout.activity_new_contact, container, false);
-        // 프래그먼트에 findViewByld 적용위해 View 선언
-        name = view.findViewById(R.id.editTextTextPersonName);
-        age = view.findViewById(R.id.editTextTextPersonName2);
+        name = findViewById(R.id.editTextTextPersonName);
+        phoneNumber = findViewById(R.id.editTextTextPersonName2);
+        imageButton = findViewById(R.id.imageButton);
 
-        Button save = view.findViewById(R.id.button2);
-        save.setOnClickListener(new View.OnClickListener() {
+        Button saveButton = findViewById(R.id.button2);
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String nameStr = name.getText().toString();
-                String ageStr = age.getText().toString();
+                String phoneNumberStr = phoneNumber.getText().toString();
 
-                //이미지 버튼에 설정된 이미지를 Bitmap 형태로 가져오기
+                // 이미지 버튼에 설정된 이미지를 Bitmap 형태로 가져오기
                 BitmapDrawable drawable = (BitmapDrawable) imageButton.getDrawable();
                 Bitmap bitmap = drawable.getBitmap();
 
-                //Bitmap을 byte array로 변환
+                // Bitmap을 byte array로 변환
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                byte[]byteArray = byteArrayOutputStream.toByteArray();
+                byte[] imageByteArray = byteArrayOutputStream.toByteArray();
 
-                //DatabaseHelper 인스턴스 생성, addUser 메소드 호출 사용자 정보 저장
-                DatabaseHelper db = new DatabaseHelper(getContext());
-                db.addUser(nameStr, ageStr,byteArray);
+                // DatabaseHelper2 인스턴스 생성, addUser 메소드 호출하여 사용자 정보 저장
+                DatabaseHelper2 db = new DatabaseHelper2(NewContactActivity.this);
+                db.addUser(nameStr, phoneNumberStr, imageByteArray);
 
-                Toast.makeText(getContext(), "운동 기록 저장 완료"
-                        ,Toast.LENGTH_SHORT).show();
-            }
-        }); // 저장 버튼 클릭 시 입력한 정보 표시
+                Toast.makeText(NewContactActivity.this, "사용자 정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
 
-
-        imageButton = view.findViewById(R.id.imageButton);
-        imageButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                // 카메라 권한이 있는지 확인합니다.
-                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    // 카메라 권한이 없다면 권한을 요청합니다.
-                    requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
-                } else {
-                    // 이미 권한이 있다면 카메라 앱을 실행합니다.
-                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                    }
-                }
+                // 액티비티를 종료하고 이전 화면으로 돌아감
+                finish();
             }
         });
 
-        return view;
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 갤러리 앱을 실행하기 위한 인텐트 생성
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.setType("image/*");
+
+                // 갤러리 앱을 실행하여 이미지 선택할 수 있는 액티비티 호출
+                startActivityForResult(Intent.createChooser(intent, "Select Image"), REQUEST_IMAGE_GALLERY);
+            }
+        });
+
     }
 
-    private static final int REQUEST_CAMERA_PERMISSION = 1001;
-
-
-    private void setSelectedDate(Date curDate) {
-        String selectedDateStr = dataFormat.format(curDate);
-        birthday.setText(selectedDateStr); // 버튼의 텍스트 수정
-    }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK){
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imageButton.setImageBitmap(imageBitmap);
+
+        if (requestCode == REQUEST_IMAGE_GALLERY && resultCode == RESULT_OK) {
+            if (data != null) {
+                Uri imageUri = data.getData();
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                    imageButton.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
-    */
 }
+
