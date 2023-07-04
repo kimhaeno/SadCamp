@@ -1,27 +1,30 @@
 package com.example.sadcamp;
 
 import android.content.Intent;
-import android.app.Activity;
-import android.view.MenuItem;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.sadcamp.DatabaseHelper;
-import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class PhotoActivity extends AppCompatActivity {
+
+    private DatabaseHelper myDb;
+    private int imagePosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
 
+        myDb = new DatabaseHelper(getApplicationContext());
+
         Intent intent = getIntent();
         int pos = intent.getExtras().getInt("position");
-
-        DatabaseHelper myDb = new DatabaseHelper(this.getApplicationContext());
-
 
         Toolbar toolbar = findViewById(R.id.photo_toolbar);
         setSupportActionBar(toolbar);
@@ -31,8 +34,30 @@ public class PhotoActivity extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.photo_bigger);
         imageView.setImageBitmap(myDb.getBitmapImage(pos));
 
+        Log.d("TAG", String.format("before clicked %d", pos));
+
+        Button btnDelete = findViewById(R.id.btnDelete);
+        btnDelete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Log.d("TAG", String.format("clicked %d", pos));
+                deleteData(pos);
+            }
+
+        });
+    }
+
+    private void deleteData(int pos) {
+
+        Log.d("TAG", String.format("inside deletedata %d", pos));
+        myDb.deleteData(pos);
+        // 사진 및 관련 데이터 삭제 후 원하는 동작 수행
 
     }
+
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){

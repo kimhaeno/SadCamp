@@ -31,6 +31,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(createTable);
     }
 
+    public void deleteData(int imageId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor res = db.rawQuery("SELECT * FROM "+ TABLE_NAME, null);
+
+        if(res.moveToFirst()){
+            do{
+                Log.d("Helper!", res.getString(1));
+                Log.d("Helper!", res.getString(2));
+            }while(res.moveToNext());
+        }
+
+        db.execSQL("DELETE FROM "+ TABLE_NAME + " WHERE ID = " + String.format("%d", imageId));
+        Log.d("Helper!", "DELETE FROM "+ TABLE_NAME + " WHERE ID = " + String.format("%d", imageId));
+
+        res.close();
+    }
+
+
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);

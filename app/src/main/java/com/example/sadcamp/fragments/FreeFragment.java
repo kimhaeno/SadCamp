@@ -158,11 +158,49 @@ public class FreeFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK){
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imageButton.setImageBitmap(imageBitmap);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            if (data != null && data.getExtras() != null) {
+                Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+                if(imageBitmap != null) {
+                    //Bitmap rotatedBitmap = rotateImageIfRequired(imageBitmap, getContext(), data.getData()); - 이 부분 주석 처리
+                    Bitmap croppedBitmap = centerCropBitmap(imageBitmap, imageButton.getHeight(), imageButton.getWidth());
+                    imageButton.setImageBitmap(croppedBitmap);
+                }
+            }
         }
     }
 
+
+
+    private Bitmap centerCropBitmap(Bitmap bitmap, int targetHeight, int targetWidth) {
+        float bitmapRatio = (float) bitmap.getWidth() / bitmap.getHeight();
+        float targetRatio = (float) targetWidth / targetHeight;
+
+        int newWidth;
+        int newHeight;
+        int offsetX = 0;
+        int offsetY = 0;
+
+        // 이미지를 이미지 버튼의 가로 세로 비율에 맞게 조정
+        if (bitmapRatio > targetRatio) {
+            newWidth = (int) (bitmap.getHeight() * targetRatio);
+            newHeight = bitmap.getHeight();
+            offsetX = (bitmap.getWidth() - newWidth) / 2;
+        } else {
+            newWidth = bitmap.getWidth();
+            newHeight = (int) (bitmap.getWidth() / targetRatio);
+            offsetY = (bitmap.getHeight() - newHeight) / 2;
+        }
+
+        // 새로운 크기가 0 또는 음수인지 검증
+        if (newWidth <= 0 || newHeight <= 0) {
+            throw new IllegalArgumentException("Invalid dimensions.");
+        }
+
+        // 이미지 잘라내기
+        bitmap = Bitmap.createBitmap(bitmap, offsetX, offsetY, newWidth, newHeight);
+
+        // 이미지 크기 조정
+        return Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, true);
+    }
 }
