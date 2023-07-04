@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.sadcamp.DatabaseHelper;
 import com.example.sadcamp.GalleryAdapter;
@@ -17,8 +18,10 @@ import java.util.ArrayList;
 
 public class GalleryFragment extends Fragment {
 
-    GridView gridView;
-    DatabaseHelper myDb;
+    private GridView gridView;
+    private DatabaseHelper myDb;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private GalleryAdapter galleryAdapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -28,16 +31,30 @@ public class GalleryFragment extends Fragment {
 
         ArrayList<Bitmap> imageList = myDb.getAllImages();
 
-        GalleryAdapter galleryAdapter = new GalleryAdapter(getActivity(), imageList);
+        galleryAdapter = new GalleryAdapter(getActivity(), imageList);
 
         gridView = rootView.findViewById(R.id.gridView);
         gridView.setAdapter(galleryAdapter);
 
-
+        swipeRefreshLayout = rootView.findViewById(R.id.refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                getContacts();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         return rootView;
     }
 
+    private void getContacts() {
+        ArrayList<Bitmap> updatedContacts = myDb.getAllImages();
+        ArrayList<Bitmap> imageList = myDb.getAllImages();
+        galleryAdapter = new GalleryAdapter(getActivity(), imageList);
+    }
 }
+
 
 

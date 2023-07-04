@@ -11,7 +11,7 @@ import android.graphics.BitmapFactory;
 import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "person.db";
+    public static final String DATABASE_NAME = "photo.db";
     public static final String TABLE_NAME = "person_data";
     public static final String COL2 = "name";
     public static final String COL3 = "age";
