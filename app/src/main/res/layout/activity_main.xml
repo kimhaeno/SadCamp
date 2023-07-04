@@ -9,20 +9,21 @@
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tab_layout">
+        android:id="@+id/tab_layout"
+        app:tabIndicatorColor="@color/black">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="누구랑" />
+            android:text="오누운?" />
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="어디서"/>
+            android:text="운완사"/>
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="어떻게"/>
+            android:text="오운완"/>
 
     </com.google.android.material.tabs.TabLayout>
 

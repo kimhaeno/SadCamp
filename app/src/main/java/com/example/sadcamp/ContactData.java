@@ -1,10 +1,12 @@
 package com.example.sadcamp;
 
-public class ContactData {
-    private int profile;
+import java.io.Serializable;
+
+public class ContactData implements Serializable {
+
     private String name;
     private String email;
-
+    private int profile;
     public ContactData(String name, String email, int profile){
         this.profile = profile;
         this.name = name;
@@ -37,4 +39,7 @@ public class ContactData {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
+
 }

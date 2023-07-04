@@ -2,6 +2,7 @@ package com.example.sadcamp;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.ContentInfo;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,16 +92,14 @@ public class CallAdapter extends RecyclerView.Adapter<CallAdapter.ViewHolder> {
                 int pos = viewHolder.getAdapterPosition();
                 if (pos != RecyclerView.NO_POSITION) {
                     ContactData contactData = contactList.get(pos); // 'position'을 'pos'로 변경
-                    Gson gson = new Gson();
-                    String jsonContactData = gson.toJson(contactData);
 
-                    // Create and show a Dialog with the JSON contact data
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setTitle("Contact Information")
-                            .setMessage(jsonContactData)
-                            .setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                    Intent intent = new Intent(context, ProfileActivity.class);
+
+                    intent.putExtra("position", pos);
+                    intent.putExtra("data", contactData);
+
+                    context.startActivity(intent);
+
                 }
             }
         });
