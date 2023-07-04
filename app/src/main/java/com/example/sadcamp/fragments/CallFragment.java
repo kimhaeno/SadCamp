@@ -44,7 +44,8 @@ public class CallFragment extends Fragment {
         });
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview);
 
-        data.add(new ContactData("신민영","010-5127-6448",R.drawable.a));
+        data.add(new ContactData("신민영","010-5127-6448",R.drawable.shin));
+        data.add(new ContactData("Test","010-5413-6410",R.drawable.b));
 
         adapter = new CallAdapter(getActivity(), data);
 
