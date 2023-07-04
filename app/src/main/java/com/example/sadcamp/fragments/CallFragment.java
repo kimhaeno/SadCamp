@@ -38,11 +38,8 @@ public class CallFragment extends Fragment {
         fabAddContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, new NewContactActivity());
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+
+                return;
             }
         });
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview);

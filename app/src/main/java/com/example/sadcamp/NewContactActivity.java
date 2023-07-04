@@ -109,5 +109,5 @@ public class NewContactActivity extends AppCompatActivity {
             imageButton.setImageBitmap(imageBitmap);
         }
     }
-
+    */
 }
