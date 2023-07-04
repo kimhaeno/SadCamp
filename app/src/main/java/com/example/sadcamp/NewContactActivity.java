@@ -26,6 +26,8 @@ public class NewContactActivity extends AppCompatActivity {
     private EditText phoneNumber;
     private ImageButton imageButton;
 
+    private EditText bio;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,7 @@ public class NewContactActivity extends AppCompatActivity {
         name = findViewById(R.id.editTextTextPersonName);
         phoneNumber = findViewById(R.id.editTextTextPersonName2);
         imageButton = findViewById(R.id.imageButton);
+        bio = findViewById(R.id.edit_bio);
 
         Button saveButton = findViewById(R.id.button2);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +44,7 @@ public class NewContactActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String nameStr = name.getText().toString();
                 String phoneNumberStr = phoneNumber.getText().toString();
+                String bioStr = bio.getText().toString();
 
                 // 이미지 버튼에 설정된 이미지를 Bitmap 형태로 가져오기
                 BitmapDrawable drawable = (BitmapDrawable) imageButton.getDrawable();
@@ -52,8 +56,8 @@ public class NewContactActivity extends AppCompatActivity {
                 byte[] imageByteArray = byteArrayOutputStream.toByteArray();
 
                 // DatabaseHelper2 인스턴스 생성, addUser 메소드 호출하여 사용자 정보 저장
-                DatabaseHelper2 db = new DatabaseHelper2(NewContactActivity.this);
-                db.addUser(nameStr, phoneNumberStr, imageByteArray);
+                ContactDatabaseHelper db = new ContactDatabaseHelper(NewContactActivity.this);
+                db.addUser(nameStr, imageByteArray, bioStr, phoneNumberStr);
 
                 Toast.makeText(NewContactActivity.this, "사용자 정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
 

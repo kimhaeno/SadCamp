@@ -33,11 +33,15 @@
 
         <activity android:name=".PhotoActivity"
             android:theme="@style/PhotoTheme">
-        </activity>>
+        </activity>
 
         <activity android:name=".ProfileActivity"
             android:theme="@style/PhotoTheme">
-        </activity>>
+        </activity>
+
+        <activity android:name=".NewContactActivity"
+            android:theme="@style/PhotoTheme">
+        </activity>
 
 
     </application>

@@ -1,5 +1,6 @@
 package com.example.sadcamp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,7 +40,11 @@ public class CallFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                return;
+                Intent intent = new Intent(getContext(), NewContactActivity.class);
+
+                getContext().startActivity(intent);
+
+
             }
         });
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview);
