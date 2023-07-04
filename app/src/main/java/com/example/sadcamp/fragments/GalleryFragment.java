@@ -51,9 +51,11 @@ public class GalleryFragment extends Fragment {
 
     private void getContacts() {
         ArrayList<Bitmap> updatedContacts = myDb.getAllImages();
-        ArrayList<Bitmap> imageList = myDb.getAllImages();
-        galleryAdapter = new GalleryAdapter(getActivity(), imageList);
+        galleryAdapter = new GalleryAdapter(getActivity(), updatedContacts);
+        gridView.setAdapter(galleryAdapter);
     }
+
+
 }
 
 
