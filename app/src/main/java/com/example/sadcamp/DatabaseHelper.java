@@ -99,6 +99,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return images;
     }
 
+    public void insert_with_name(String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", name);  // Assuming you have a "name" column
+
+        db.insert("names", null, values);  // Assuming you have a "names" table
+        db.close();
+    }
+
     public Bitmap getBitmapImage(int position){
         Bitmap image = null;
         SQLiteDatabase db = this.getWritableDatabase();
