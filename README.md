@@ -31,8 +31,13 @@
 # TAB2: 오운사 
 
 ## Feature
-1. RecyclerView와 GridLayout을 이용한 갤러리 구현
-2. TAB3에서 불러온 이미지 및 정보 저장
+1. 갤러리 보여주기
+2. TAB3에서 이미지 및 정보 가져오기
+3. 갤러리 내 이미지 클릭 시 세부 정보 확인
+
+- RecyclerView와 GridLayout을 사용하여 갤러리 구현
+- DatabaseHelper를 이용하여 TAB3에서 작성한 이미지 불러오기
+  
    
 # TAB3: 오운완
 
