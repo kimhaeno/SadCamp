@@ -7,7 +7,9 @@
 # Intro
 <img src="/app/src/main/res/drawable/my_logo2.png" alt="title"></img><br/>
 오 . 운 . 완
-# TAB1: 오누운
+# TAB1: 오누운🔥
+오늘.누구랑.운동할까?
+
 ### Feature
 <img src="tab1.jpg" width="250" height="480" alt="tab1"></img><br/>
 
@@ -28,7 +30,8 @@
    - send_SMS 권한을 허용하여 친구에게 문자 메시지를 터치 한 번으로 전송
    - 원하는 내용 작성가능, 위에 머릿말 "[From Own Wan]"
 
-# TAB2: 오운사 
+# TAB2: 오운사🌟
+오늘.운동한.사진
 
 ### Feature
 <img src="tab2.jpg" width="250" height="480" alt="tab2"></img><br/>
@@ -44,13 +47,15 @@
 <img src="tab2img.jpg" width="250" height="480" alt="tab2img"></img><br/>
  
 - 갤러리 내 이미지 클릭 시 TAB3에서 작성한 정보 (한 줄 기록, 몸무게, 날짜) 등 확인 가능
+  - 삭제 버튼 터치 시 삭제되어 반영됨 
   
    
-# TAB3: 오운완
+# TAB3: 오운완🐵
+오늘.운동.완료!
 
 <img src="tab3.jpg" width="250" height="480" alt="tab3"></img><br/>
 
-## Feature
+### Feature
 1. 한 줄 기록, 몸무게 기록
 2. 운동 날짜 기록
 3. 카메라 기능을 통한 사진 기록
