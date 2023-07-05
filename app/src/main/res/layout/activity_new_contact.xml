@@ -33,7 +33,7 @@
 
     <EditText
         android:id="@+id/editTextTextPersonName"
-        android:layout_width="wrap_content"
+        android:layout_width="139dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="34dp"
         android:layout_marginTop="60dp"
@@ -78,11 +78,11 @@
 
     <EditText
         android:id="@+id/edit_bio"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="34dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="167dp"
+        android:layout_marginEnd="34dp"
         android:ems="5"
         android:hint="한 줄 소개"
         android:inputType="textMultiLine"
@@ -96,11 +96,11 @@
 
     <EditText
         android:id="@+id/editTextTextPersonName2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="34dp"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="167dp"
+        android:layout_marginEnd="34dp"
         android:ems="5"
         android:hint="전화번호"
         android:inputType="number"
