@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.sadcamp.DatabaseHelper;
 import com.example.sadcamp.R;
+import com.example.sadcamp.SearchPersonActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
@@ -63,6 +64,16 @@ public class FreeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 showDateDialog(); // 생년월일 버튼 클릭 시 showDateDialog() 함수 호출
+            }
+        });
+
+        Button plus = view.findViewById(R.id.button4);
+        plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // SearchPersonActivity 실행
+                Intent intent = new Intent(getActivity(), SearchPersonActivity.class);
+                startActivity(intent);
             }
         });
 

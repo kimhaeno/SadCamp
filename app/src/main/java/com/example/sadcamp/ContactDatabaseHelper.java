@@ -25,6 +25,28 @@ public class ContactDatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, 1);
     }
 
+    public ArrayList<String> getAllNames() {
+        ArrayList<String> nameList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + COL2 + " FROM " + TABLE_NAME, null);
+
+        int columnIndex = cursor.getColumnIndex(COL2);
+        if (columnIndex != -1) {
+            if (cursor.moveToFirst()) {
+                do {
+                    String name = cursor.getString(columnIndex);
+                    nameList.add(name);
+                } while (cursor.moveToNext());
+            }
+        }
+
+        cursor.close();
+        db.close();
+
+        return nameList;
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
