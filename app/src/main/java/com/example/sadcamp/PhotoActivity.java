@@ -7,9 +7,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.util.ArrayList;
 
 public class PhotoActivity extends AppCompatActivity {
 
@@ -26,6 +29,7 @@ public class PhotoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int pos = intent.getExtras().getInt("position");
+        ArrayList<String> info = new ArrayList<>();
 
         Toolbar toolbar = findViewById(R.id.photo_toolbar);
         setSupportActionBar(toolbar);
@@ -33,7 +37,17 @@ public class PhotoActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(String.format("PHOTO #%d", pos));
 
         ImageView imageView = findViewById(R.id.photo_bigger);
+        TextView workView = findViewById(R.id.workout);
+        TextView dateView = findViewById(R.id.date);
+        TextView weightView = findViewById(R.id.weight);
+
         imageView.setImageBitmap(myDb.getBitmapImage(pos));
+        info = myDb.getImageInfo(pos);
+
+        workView.setText("운동 이름:     " + info.get(0));
+        dateView.setText("그때 몸무게:  " + info.get(1) + " kg");
+        weightView.setText("날짜:             " + info.get(2));
+
 
         Log.d("TAG", String.format("before clicked %d", pos));
 

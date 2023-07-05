@@ -72,8 +72,8 @@ public class FreeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // SearchPersonActivity 실행
-                Intent intent = new Intent(getActivity(), SearchPersonActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(getActivity(), SearchPersonActivity.class);
+                //startActivity(intent);
             }
         });
 

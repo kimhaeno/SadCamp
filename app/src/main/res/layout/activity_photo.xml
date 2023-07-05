@@ -21,35 +21,33 @@
 
     <ImageView
         android:id="@+id/photo_bigger"
-        android:layout_width="0dp"
-        android:layout_height="286dp"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
         android:layout_marginTop="84dp"
         android:gravity="center"
         android:src="@drawable/b"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/photo_toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/photo_toolbar" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Info"
+        android:text="운동 정보"
         android:textAlignment="center"
         android:textSize="34sp"
         android:fontFamily="@font/gsans_bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/photo_bigger"
+        app:layout_constraintStart_toStartOf="@id/photo_bigger"
+        app:layout_constraintTop_toBottomOf="@id/photo_bigger"
+        app:layout_constraintHorizontal_bias="0.050000012"
         app:layout_constraintVertical_bias="0.14" />
 
     <LinearLayout
         android:id="@+id/photo_info"
-        android:layout_width="207dp"
-        android:layout_height="33dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,11 +57,29 @@
         app:layout_constraintVertical_bias="0.050000012">
 
         <TextView
-            android:id="@+id/photo_date"
+            android:id="@+id/workout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="details"
+            android:layout_height="wrap_content"
+            android:text="workout"
             android:fontFamily="@font/gsans_med"
+            android:layout_marginEnd="10dp"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="date"
+            android:fontFamily="@font/gsans_med"
+            android:layout_marginEnd="10dp"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="weight"
+            android:fontFamily="@font/gsans_med"
+            android:layout_marginEnd="10dp"
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -72,11 +88,12 @@
         android:id="@+id/btnDelete"
         android:layout_width="321dp"
         android:layout_height="37dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginBottom="92dp"
-        android:text="삭제"
+        android:layout_marginBottom="60dp"
         android:fontFamily="@font/gsans_med"
+        android:text="삭제"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

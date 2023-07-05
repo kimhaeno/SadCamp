@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -37,6 +39,11 @@ public class NewContactActivity extends AppCompatActivity {
         phoneNumber = findViewById(R.id.editTextTextPersonName2);
         imageButton = findViewById(R.id.imageButton);
         bio = findViewById(R.id.edit_bio);
+
+        Toolbar toolbar = findViewById(R.id.addcontact_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("연락처 추가");
 
         Button saveButton = findViewById(R.id.button2);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +89,17 @@ public class NewContactActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:{
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

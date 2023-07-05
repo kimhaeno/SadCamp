@@ -99,15 +99,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return images;
     }
 
-    public void insert_with_name(String name) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("name", name);  // Assuming you have a "name" column
-
-        db.insert("names", null, values);  // Assuming you have a "names" table
-        db.close();
-    }
-
     public Bitmap getBitmapImage(int position){
         Bitmap image = null;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -132,7 +123,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + TABLE_NAME + " ) LIMIT " + (position + 1) , null);
         if (res.moveToFirst()){
             info.add(res.getString(0));
-            info.add(res.getString(1));
+            info.add(String.valueOf(res.getInt(1)));
             info.add(res.getString(2));
         }
 

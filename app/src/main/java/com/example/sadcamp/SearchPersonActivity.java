@@ -29,7 +29,7 @@ public class SearchPersonActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         Button saveButton = findViewById(R.id.saveButton);  // Assuming you have a "save" button
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        /*saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ArrayList<String> checkedNames = adapter.getCheckedNames();
@@ -37,9 +37,8 @@ public class SearchPersonActivity extends AppCompatActivity {
                 // Save checkedNames to DatabaseHelper
                 DatabaseHelper db = new DatabaseHelper(SearchPersonActivity.this);
                 for (String name : checkedNames) {
-                    db.insert_with_name(name);  // insertName()는 이름을 삽입하는 메소드로 가정합니다.
-                }
+
             }
-        });
+        });*/
     }
 }
