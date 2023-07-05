@@ -19,6 +19,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL4 = "birthday";
     public static final String COL5 = "photo"; // Blob type for Bitmap image
 
+    public ArrayList<Integer> idTranslator = new ArrayList<>();
+
+    public int history = 0;
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
@@ -29,22 +33,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COL2 +" TEXT, " + COL3 +" INTEGER, " + COL4 + " TEXT, " + COL5 + " BLOB)";
         Log.d("aaaaaaaaaaaaaaaaaaaaaaaaa", createTable);
         db.execSQL(createTable);
+        history = 0;
     }
 
-    public void deleteData(int imageId) {
+    public void deleteData(int pos) {
         SQLiteDatabase db = this.getWritableDatabase();
+        int imageId = idTranslator.get(pos);
 
-        Cursor res = db.rawQuery("SELECT * FROM "+ TABLE_NAME, null);
+        Cursor res = db.rawQuery("SELECT rowid FROM "+ TABLE_NAME, null);
 
         if(res.moveToFirst()){
             do{
-                Log.d("Helper!", res.getString(1));
-                Log.d("Helper!", res.getString(2));
+                Log.d("Helper!", String.format("%d", res.getInt(0)));
             }while(res.moveToNext());
         }
 
-        db.execSQL("DELETE FROM "+ TABLE_NAME + " WHERE ID = " + String.format("%d", imageId));
-        Log.d("Helper!", "DELETE FROM "+ TABLE_NAME + " WHERE ID = " + String.format("%d", imageId));
+        db.execSQL("DELETE FROM "+ TABLE_NAME + " WHERE rowID = " + String.format("%d", imageId));
+        Log.d("Helper!", "DELETE FROM "+ TABLE_NAME + " WHERE rowID = " + String.format("%d", imageId));
 
         res.close();
     }
@@ -70,8 +75,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // 실패하면 -1이 저장됩니다.
         if(result == -1)
             return false;
-        else
-            return true;
+
+        idTranslator.add(++history);
+
+        return true;
     }
 
     public Cursor getData() {
@@ -97,7 +104,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Bitmap getBitmapImage(int position){
         Bitmap image = null;
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT " + COL5 + " FROM " + TABLE_NAME + " WHERE ID = " + (position + 1), null);
+        int imageId = idTranslator.get(position);
+
+        Cursor res = db.rawQuery("SELECT " + COL5 + " FROM " + TABLE_NAME + " WHERE ID = " + (imageId + 1), null);
         if (res.moveToFirst()){
             byte[] imgByte = res.getBlob(0);
             image = BitmapFactory.decodeByteArray(imgByte,0, imgByte.length);

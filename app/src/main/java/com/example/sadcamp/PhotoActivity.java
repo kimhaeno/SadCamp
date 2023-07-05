@@ -48,15 +48,9 @@ public class PhotoActivity extends AppCompatActivity {
     }
 
     private void deleteData(int pos) {
-
-        Log.d("TAG", String.format("inside deletedata %d", pos));
+        Log.d("DeleteData", "Deleting data with ID: " + pos);
         myDb.deleteData(pos);
-        // 사진 및 관련 데이터 삭제 후 원하는 동작 수행
-
     }
-
-
-
 
 
     @Override
