@@ -31,6 +31,8 @@
 # TAB2: 오운사 
 
 ### Feature
+<img src="tab2.jpg" width="250" height="480" alt="tab2"></img><br/>
+
 1. 갤러리 보여주기
 2. TAB3에서 이미지 및 정보 가져오기
 3. 갤러리 내 이미지 클릭 시 세부 정보 확인
@@ -39,12 +41,19 @@
 - DatabaseHelper를 이용하여 TAB3에서 작성한 이미지 불러옴
      - DatabaseHelper 내 getAllImages() 이용
  
+<img src="tab2img.jpg" width="250" height="480" alt="tab2img"></img><br/>
+ 
 - 갤러리 내 이미지 클릭 시 TAB3에서 작성한 정보 (한 줄 기록, 몸무게, 날짜) 등 확인 가능
   
    
 # TAB3: 오운완
 
+<img src="tab3.jpg" width="250" height="480" alt="tab3"></img><br/>
+
 ## Feature
 1. 한 줄 기록, 몸무게 기록
 2. 운동 날짜 기록
 3. 카메라 기능을 통한 사진 기록
+
+- <code>SQLiteHelper</code>를 extend한 class <code>DataBaseHelper</code>를 사용하여 gallery 관리
+
