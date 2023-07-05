@@ -30,13 +30,16 @@
 
 # TAB2: 오운사 
 
-## Feature
+### Feature
 1. 갤러리 보여주기
 2. TAB3에서 이미지 및 정보 가져오기
 3. 갤러리 내 이미지 클릭 시 세부 정보 확인
 
 - RecyclerView와 GridLayout을 사용하여 갤러리 구현
-- DatabaseHelper를 이용하여 TAB3에서 작성한 이미지 불러오기
+- DatabaseHelper를 이용하여 TAB3에서 작성한 이미지 불러옴
+     - DatabaseHelper 내 getAllImages() 이용
+ 
+- 갤러리 내 이미지 클릭 시 TAB3에서 작성한 정보 (한 줄 기록, 몸무게, 날짜) 등 확인 가능
   
    
 # TAB3: 오운완
