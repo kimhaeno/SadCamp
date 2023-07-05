@@ -21,7 +21,8 @@ public class PhotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
 
-        myDb = new DatabaseHelper(getApplicationContext());
+        MyApp myApp = (MyApp) getApplicationContext();
+        myDb = myApp.getDatabaseHelper();
 
         Intent intent = getIntent();
         int pos = intent.getExtras().getInt("position");

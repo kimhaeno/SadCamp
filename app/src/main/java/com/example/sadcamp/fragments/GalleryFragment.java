@@ -1,5 +1,6 @@
 package com.example.sadcamp.fragments;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,27 +9,37 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.sadcamp.DatabaseHelper;
 import com.example.sadcamp.GalleryAdapter;
+import com.example.sadcamp.MyApp;
 import com.example.sadcamp.R;
 
 import java.util.ArrayList;
 
 public class GalleryFragment extends Fragment {
 
+    private Context appContext;
+
     private GridView gridView;
     private DatabaseHelper myDb;
     private SwipeRefreshLayout swipeRefreshLayout;
     private GalleryAdapter galleryAdapter;
 
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        appContext = context.getApplicationContext();
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gallery, container, false);
 
-        myDb = new DatabaseHelper(getActivity());
+        MyApp myApp =  (MyApp) appContext;
+        myDb = myApp.getDatabaseHelper();
 
         ArrayList<Bitmap> imageList = myDb.getAllImages();
 

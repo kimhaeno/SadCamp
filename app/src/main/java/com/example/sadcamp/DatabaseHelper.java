@@ -14,13 +14,10 @@ import java.util.ArrayList;
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "photo.db";
     public static final String TABLE_NAME = "photo_data";
-    public static final String COL2 = "name";
-    public static final String COL3 = "age";
-    public static final String COL4 = "birthday";
+    public static final String COL2 = "workout";
+    public static final String COL3 = "weight";
+    public static final String COL4 = "date";
     public static final String COL5 = "photo"; // Blob type for Bitmap image
-
-    public ArrayList<Integer> idTranslator = new ArrayList<>();
-
     public int history = 0;
 
     public DatabaseHelper(Context context) {
@@ -31,24 +28,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COL2 +" TEXT, " + COL3 +" INTEGER, " + COL4 + " TEXT, " + COL5 + " BLOB)";
-        Log.d("aaaaaaaaaaaaaaaaaaaaaaaaa", createTable);
         db.execSQL(createTable);
+        Log.d("##Creating##", "Create");
         history = 0;
     }
 
     public void deleteData(int pos) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int imageId = idTranslator.get(pos);
+        int imageId = 0;
 
-        Cursor res = db.rawQuery("SELECT rowid FROM "+ TABLE_NAME, null);
+        Cursor res = db.rawQuery("SELECT ID FROM " + TABLE_NAME + " WHERE ID = (SELECT MAX(ID) FROM "
+                + TABLE_NAME + " LIMIT " + (pos + 1) + " )", null);
 
         if(res.moveToFirst()){
-            do{
-                Log.d("Helper!", String.format("%d", res.getInt(0)));
-            }while(res.moveToNext());
+            imageId = res.getInt(0);
         }
 
-        db.execSQL("DELETE FROM "+ TABLE_NAME + " WHERE rowID = " + String.format("%d", imageId));
+
+
+        db.execSQL("DELETE FROM "+ TABLE_NAME + " WHERE ID = " + String.format("%d", imageId));
         Log.d("Helper!", "DELETE FROM "+ TABLE_NAME + " WHERE rowID = " + String.format("%d", imageId));
 
         res.close();
@@ -61,12 +59,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
-    public boolean addUser(String name, String age, String birthday, byte[] image) {
+    public boolean addUser(String workout, String weight, String date, byte[] image) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL2, name);
-        contentValues.put(COL3, age);
-        contentValues.put(COL4, birthday);
+        contentValues.put(COL2, workout);
+        contentValues.put(COL3, weight);
+        contentValues.put(COL4, date);
         contentValues.put(COL5, image);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
@@ -76,7 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(result == -1)
             return false;
 
-        idTranslator.add(++history);
+        Log.d("##Addition##", "adding");
 
         return true;
     }
@@ -104,9 +102,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Bitmap getBitmapImage(int position){
         Bitmap image = null;
         SQLiteDatabase db = this.getWritableDatabase();
-        int imageId = idTranslator.get(position);
 
-        Cursor res = db.rawQuery("SELECT " + COL5 + " FROM " + TABLE_NAME + " WHERE ID = " + (imageId + 1), null);
+        Cursor res = db.rawQuery("SELECT " + COL5 + " FROM " + TABLE_NAME + " WHERE ID = (SELECT MAX(ID) FROM "
+                + TABLE_NAME + " ) LIMIT " + (position + 1) , null);
         if (res.moveToFirst()){
             byte[] imgByte = res.getBlob(0);
             image = BitmapFactory.decodeByteArray(imgByte,0, imgByte.length);
@@ -115,20 +113,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         res.close();
         return image;
     }
-    //아니 ㅋㅋ...생일이랑 나이 실화냐?
-    /*
-    public String[] getPhotoInfo(int position){
-        Bitmap image = null;
+
+    public ArrayList<String> getImageInfo(int position){
+        ArrayList<String> info = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT * " + " FROM " + TABLE_NAME + " WHERE ID = " + (position + 1), null);
+
+        Cursor res = db.rawQuery("SELECT " + COL2 +" , " + COL3 +" , " + COL4
+                + " FROM " + TABLE_NAME + " WHERE ID = (SELECT MAX(ID) FROM "
+                + TABLE_NAME + " ) LIMIT " + (position + 1) , null);
         if (res.moveToFirst()){
-            byte[] imgByte = res.getBlob(0);
-            image = BitmapFactory.decodeByteArray(imgByte,0, imgByte.length);
+            info.add(res.getString(0));
+            info.add(res.getString(1));
+            info.add(res.getString(2));
         }
 
         res.close();
-        return image;
-    }*/
+        return info;
+    }
+
 
 }
 
