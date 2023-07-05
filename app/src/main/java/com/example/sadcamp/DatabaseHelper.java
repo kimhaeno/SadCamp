@@ -18,6 +18,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL3 = "weight";
     public static final String COL4 = "date";
     public static final String COL5 = "photo"; // Blob type for Bitmap image
+
+    public static final String COL6 = "fellows";
     public int history = 0;
 
     public DatabaseHelper(Context context) {
@@ -27,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COL2 +" TEXT, " + COL3 +" INTEGER, " + COL4 + " TEXT, " + COL5 + " BLOB)";
+                COL2 +" TEXT, " + COL3 +" INTEGER, " + COL4 + " TEXT, " + COL5 + " BLOB," + COL6 + "TEXT)";
         db.execSQL(createTable);
         Log.d("##Creating##", "Create");
         history = 0;
@@ -59,13 +61,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
-    public boolean addUser(String workout, String weight, String date, byte[] image) {
+    public boolean addUser(String workout, String weight, String date, byte[] image, String fellows) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL2, workout);
         contentValues.put(COL3, weight);
         contentValues.put(COL4, date);
         contentValues.put(COL5, image);
+        contentValues.put(COL6, fellows);
+
 
         long result = db.insert(TABLE_NAME, null, contentValues);
 
@@ -99,14 +103,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return images;
     }
 
-    public void insert_with_name(String name) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("name", name);  // Assuming you have a "name" column
+   // public void insert_with_name(String name) {
+     //   SQLiteDatabase db = this.getWritableDatabase();
+       // ContentValues values = new ContentValues();
+        //values.put("name", name);  // Assuming you have a "name" column
 
-        db.insert("names", null, values);  // Assuming you have a "names" table
-        db.close();
-    }
+        //db.insert("names", null, values);  // Assuming you have a "names" table
+        //db.close();
+    //}
 
     public Bitmap getBitmapImage(int position){
         Bitmap image = null;

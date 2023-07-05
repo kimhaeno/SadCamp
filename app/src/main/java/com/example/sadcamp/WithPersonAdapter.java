@@ -1,4 +1,4 @@
-package com.example.sadcamp;
+/*package com.example.sadcamp;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,4 +71,4 @@ public class WithPersonAdapter extends RecyclerView.Adapter<WithPersonAdapter.Pe
         }
         return checkedNames;
     }
-}
+}*/

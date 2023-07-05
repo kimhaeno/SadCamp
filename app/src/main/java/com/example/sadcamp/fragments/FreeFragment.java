@@ -23,7 +23,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.sadcamp.DatabaseHelper;
 import com.example.sadcamp.R;
-import com.example.sadcamp.SearchPersonActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
@@ -48,6 +47,11 @@ public class FreeFragment extends Fragment {
         // Required empty public constructor
     }
 
+    private static final int REQUEST_CODE = 1;
+    Button plus;
+
+    private String fellows;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,15 +71,16 @@ public class FreeFragment extends Fragment {
             }
         });
 
-        Button plus = view.findViewById(R.id.button4);
+
+        /*plus = view.findViewById(R.id.button4);
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // SearchPersonActivity 실행
                 Intent intent = new Intent(getActivity(), SearchPersonActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE);
             }
-        });
+        });*/
 
         Button save = view.findViewById(R.id.button2);
         save.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +101,7 @@ public class FreeFragment extends Fragment {
 
                 //DatabaseHelper 인스턴스 생성, addUser 메소드 호출 사용자 정보 저장
                 DatabaseHelper db = new DatabaseHelper(getContext());
-                db.addUser(nameStr, ageStr, birthStr, byteArray);
+                db.addUser(nameStr, ageStr, birthStr, byteArray,fellows );
 
                 Toast.makeText(getContext(), "운동 기록 저장 완료"
                         ,Toast.LENGTH_SHORT).show();
@@ -169,17 +174,24 @@ public class FreeFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             if (data != null && data.getExtras() != null) {
                 Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
                 if(imageBitmap != null) {
-                    //Bitmap rotatedBitmap = rotateImageIfRequired(imageBitmap, getContext(), data.getData()); - 이 부분 주석 처리
                     Bitmap croppedBitmap = centerCropBitmap(imageBitmap, imageButton.getHeight(), imageButton.getWidth());
                     imageButton.setImageBitmap(croppedBitmap);
                 }
             }
-        }
+        } /*else if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            if (data != null){
+                ArrayList<String> checkedNames = data.getStringArrayListExtra("checkedNames");
+                String fellows = String.join(",", checkedNames);
+                plus.setText(fellows);
+            }
+        }*/
     }
+
 
 
 
