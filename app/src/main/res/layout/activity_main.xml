@@ -15,15 +15,18 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="오누운?" />
+            android:text="오누운?"
+            android:fontFamily="@font/gsans_med"/>
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="운완사"/>
+            android:text="운완사"
+            android:fontFamily="@font/gsans_med"/>
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="오운완"/>
+            android:text="오운완"
+            android:fontFamily="@font/gsans_med"/>
 
     </com.google.android.material.tabs.TabLayout>
 

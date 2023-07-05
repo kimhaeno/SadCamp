@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/name"
+        android:fontFamily="@font/gsans_bold"
         android:layout_toEndOf="@id/imageview"
         android:textColor="@color/black"
         android:textSize="20dp"
@@ -35,6 +36,7 @@
         android:layout_toEndOf="@id/imageview"
         android:layout_below="@id/name"
         android:textColor="@color/black"
+        android:fontFamily="@font/gsans_med"
         tools:text="010-XXXX-XXXX"
         android:textSize="15dp"/>
 
@@ -46,6 +48,7 @@
         android:layout_below="@id/phoneNumber"
         android:textColor="@color/black"
         tools:text="introduce yourself"
+        android:fontFamily="@font/gsans_light"
         android:textSize="10dp"/>
 
     <LinearLayout
