@@ -8,7 +8,7 @@
 <img src="/app/src/main/res/drawable/my_logo2.png" alt="title"></img><br/>
 오 . 운 . 완
 # TAB1: 오누운
-## Feature
+### Feature
 <img src="tab1.jpg" width="250" height="480" alt="tab1"></img><br/>
 
 1. 연락처 목록 보여주기
