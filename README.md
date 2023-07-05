@@ -50,7 +50,7 @@
   - 삭제 버튼 터치 시 삭제되어 반영됨 
   
    
-# TAB3: 오운완🐵
+# TAB3: 오운완🏋️‍♀️
 오늘.운동.완료!
 
 <img src="tab3.jpg" width="250" height="480" alt="tab3"></img><br/>
