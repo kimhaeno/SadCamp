@@ -1,15 +1,19 @@
 package com.example.sadcamp;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 public class SearchPersonActivity extends AppCompatActivity {
     private ArrayList<String> nameList;
+    private RecyclerView recyclerView;
+    private WithPersonAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +23,23 @@ public class SearchPersonActivity extends AppCompatActivity {
         ContactDatabaseHelper dbHelper = new ContactDatabaseHelper(this);
         nameList = dbHelper.getAllNames();
 
-        ListView listViewNames = findViewById(R.id.list_view_names);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, nameList);
-        listViewNames.setAdapter(adapter);
-        }
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new WithPersonAdapter(nameList);
+        recyclerView.setAdapter(adapter);
+
+        Button saveButton = findViewById(R.id.saveButton);  // Assuming you have a "save" button
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<String> checkedNames = adapter.getCheckedNames();
+
+                // Save checkedNames to DatabaseHelper
+                DatabaseHelper db = new DatabaseHelper(SearchPersonActivity.this);
+                for (String name : checkedNames) {
+                    db.insert_with_name(name);  // insertName()는 이름을 삽입하는 메소드로 가정합니다.
+                }
+            }
+        });
     }
+}
